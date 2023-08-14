@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: web-server
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - cylcomed-gateway
+  http:
+    - match:
+      - uri:
+          prefix: /whoami
+      rewrite:
+        uri: /
+      route:
+      - destination:
+          host: hello-world-api-svc
+          port:
+            number: 3080
